@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PulseCheck | Employee Surveys</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="nav">
+    <span class="logo">PulseCheck</span>
+    <nav id="menu" hidden>
+      <span id="whoami" class="who"></span>
+      <button data-view="surveys" id="empLink">My surveys</button>
+      <button data-view="admin" id="adminLink" hidden>Dashboard</button>
+      <button id="logoutBtn" class="outline">Log out</button>
+    </nav>
+  </header>
+
+  <div id="toast" role="status"></div>
+
+  <main>
+    <!-- AUTH -->
+    <section id="view-auth" class="view">
+      <div class="auth-wrap">
+        <div class="auth-intro">
+          <h1>Your voice shapes the workplace.</h1>
+          <p>Answer short company surveys and help HR understand what is working and what is not.</p>
+        </div>
+        <div class="auth-card">
+          <h2 id="authTitle">Log in</h2>
+          <form id="authForm">
+            <input id="aName" placeholder="Full name" hidden />
+            <input id="aEmail" type="email" placeholder="Work email" required />
+            <select id="aDept" hidden>
+              <option>Engineering</option><option>HR</option><option>Sales</option>
+              <option>Marketing</option><option>Finance</option><option>Operations</option><option>Support</option>
+            </select>
+            <input id="aPass" type="password" placeholder="Password (min 6 characters)" minlength="6" required />
+            <button type="submit" id="authSubmit" class="block">Log in</button>
+          </form>
+          <p class="muted"><span id="authHint">New employee?</span> <a href="#" id="authToggle">Create an account</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EMPLOYEE: SURVEY LIST -->
+    <section id="view-surveys" class="view" hidden>
+      <h2>Surveys for you</h2>
+      <p class="muted">Open surveys from your company. Each can be submitted once.</p>
+      <div id="surveyList" class="stack"></div>
+    </section>
+
+    <!-- EMPLOYEE: TAKE SURVEY -->
+    <section id="view-take" class="view" hidden>
+      <button class="link-btn" data-view="surveys">&larr; Back to surveys</button>
+      <form id="takeForm" class="paper"></form>
+    </section>
+
+    <!-- ADMIN -->
+    <section id="view-admin" class="view" hidden>
+      <h2>HR dashboard</h2>
+      <div id="stats" class="stats"></div>
+      <div class="tabs">
+        <button class="tab active" data-tab="surveysTab">Surveys</button>
+        <button class="tab" data-tab="createTab">Create survey</button>
+        <button class="tab" data-tab="peopleTab">Employees</button>
+      </div>
+
+      <div id="tab-surveysTab">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Title</th><th>Status</th><th>Responses</th><th>Type</th><th></th></tr></thead>
+            <tbody id="adminSurveys"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="tab-createTab" hidden>
+        <form id="createForm" class="paper">
+          <h3>New survey</h3>
+          <label>Title <input id="cTitle" required /></label>
+          <label>Description <textarea id="cDesc" rows="2"></textarea></label>
+          <label class="check"><input type="checkbox" id="cAnon" /> Anonymous (names are hidden in results)</label>
+          <h3>Questions</h3>
+          <div id="builder"></div>
+          <div class="row">
+            <button type="button" id="addQ" class="outline">+ Add question</button>
+            <button type="submit">Save survey as draft</button>
+          </div>
+        </form>
+      </div>
+
+      <div id="tab-peopleTab" hidden>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Name</th><th>Email</th><th>Department</th></tr></thead>
+            <tbody id="adminPeople"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADMIN: RESULTS -->
+    <section id="view-results" class="view" hidden>
+      <button class="link-btn" data-view="admin">&larr; Back to dashboard</button>
+      <div id="resultsBody"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
